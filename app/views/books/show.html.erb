@@ -18,7 +18,7 @@
     </thead>
     <tr>
       <td>
-        <%= link_to attachment_image_tag(@user, :profile_image, :fill, size:'100x100' , format: 'jpg', fallback: "no_image.jpg"),user_path(@user.id) %><br>
+        <%= link_to attachment_image_tag(@user, :profile_image, :fill, size:'60x60' , format: 'jpg', fallback: "no_image.jpg"),user_path(@user.id) %><br>
         <%= link_to @user.name, user_path(@user.id) %></td>
 
 
@@ -26,8 +26,8 @@
       <td><%= @book.body %></td>
 
       <% if @user.id == current_user.id %>
-      <td><%= link_to "Edit", edit_book_path(@book.id) %></td>
-      <td><%= link_to "Destroy", book_path(@book.id) , method: :delete, "data-confirm" => "Are you sure?" %></td>
+      <td><%= button_to "Edit", edit_book_path(@book.id) %></td>
+      <td><%= button_to "Destroy", book_path(@book.id) , method: :delete, data: {confirm: "Are you sure?"} %></td>
       <% end %>
 
     </tr>
@@ -47,3 +47,30 @@
   <%= f.text_area :comment %>
   <%= f.submit "送信する" %>
 <% end %>
+
+<script>
+window.onload = () => {
+
+  class Confirm {
+    constructor(el) {
+      this.message = el.getAttribute('data-confirm')
+      if (this.message) {
+        el.form.addEventListener('submit', this.confirm.bind(this))
+      } else {
+        console && console.warn('No value specified in `data-confirm`', el)
+      }
+    }
+
+    confirm(e) {
+      if (!window.confirm(this.message)) {
+        e.preventDefault();
+      }
+    }
+  }
+
+  Array.from(document.querySelectorAll('[data-confirm]')).forEach((el) => {
+    new Confirm(el)
+  })
+
+}
+</script>

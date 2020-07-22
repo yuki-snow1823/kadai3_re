@@ -21,7 +21,7 @@
 
   <div class="row">
     <div class="user-edit-image">
-      <%= attachment_image_tag @user, :profile_image, :fill, size:'60x60', class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg"%>
+      <%= attachment_image_tag @user, :profile_image, :fill, size:'40x40', class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg"%>
     </div>
     <label class="control-label sr-only">Image</label><br>
     <%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
